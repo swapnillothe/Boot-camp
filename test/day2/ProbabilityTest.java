@@ -19,4 +19,12 @@ class ProbabilityTest {
     void shouldTrowExceptionIfValueIsAbove1() {
         assertThrows(InvalidProbabilityException.class, () -> new Probability(1.1));
     }
+
+    @Test
+    void shouldCalculateTheChanceOfEventNotHappening() throws InvalidProbabilityException {
+        Probability probability = new Probability(0.7);
+        Probability actual = probability.calculateChanceOfNotOccurring();
+        Probability expected = new Probability(0.3);
+        assertEquals(expected, actual);
+    }
 }
