@@ -7,8 +7,8 @@ class Probability {
     private final int UPPER_BOUND = 1;
     private final int LOWER_BOUND = 0;
 
-    Probability(double value) throws InvalidProbabilityException {
-        if (isOutsideBound(value)) throw new InvalidProbabilityException();
+    Probability(double value) throws ProbabilityOutOfBoundException {
+        if (isOutsideBound(value)) throw new ProbabilityOutOfBoundException();
         this.chance = BigDecimal.valueOf(value);
     }
 
@@ -16,19 +16,22 @@ class Probability {
         return value < LOWER_BOUND || value > UPPER_BOUND;
     }
 
-    Probability not() throws InvalidProbabilityException {
+    Probability not() throws ProbabilityOutOfBoundException {
         BigDecimal upperBound = BigDecimal.valueOf(UPPER_BOUND);
         BigDecimal improbability = upperBound.subtract(this.chance);
         return new Probability(improbability.doubleValue());
     }
 
-    Probability and(Probability probability1) throws InvalidProbabilityException {
-        BigDecimal and = this.chance.multiply(probability1.chance);
+    Probability and(Probability probability) throws ProbabilityOutOfBoundException {
+        BigDecimal and = this.chance.multiply(probability.chance);
         return new Probability(and.doubleValue());
     }
 
-    Probability or(Probability probability) throws InvalidProbabilityException {
-        return this.not().and(probability.not()).not();
+    Probability or(Probability probability) throws ProbabilityOutOfBoundException {
+        Probability complimentOfMainChance = this.not();
+        Probability complementOfPassedChance = probability.not();
+        Probability commonComplement = complimentOfMainChance.and(complementOfPassedChance);
+        return commonComplement.not();
     }
 
     @Override

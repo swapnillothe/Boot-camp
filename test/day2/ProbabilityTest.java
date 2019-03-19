@@ -13,16 +13,16 @@ class ProbabilityTest {
 
     @Test
     void shouldTrowExceptionIfValueIsBelow0() {
-        assertThrows(InvalidProbabilityException.class, () -> new Probability(-0.1D));
+        assertThrows(ProbabilityOutOfBoundException.class, () -> new Probability(-0.1D));
     }
 
     @Test
     void shouldTrowExceptionIfValueIsAbove1() {
-        assertThrows(InvalidProbabilityException.class, () -> new Probability(1.1D));
+        assertThrows(ProbabilityOutOfBoundException.class, () -> new Probability(1.1D));
     }
 
     @Test
-    void shouldReturnNotOfGivenProbability() throws InvalidProbabilityException {
+    void shouldReturnComplementOfProbability() throws ProbabilityOutOfBoundException {
         Probability probability = new Probability(0.3D);
         Probability actual = probability.not();
         Probability expected = new Probability(0.7D);
@@ -30,7 +30,7 @@ class ProbabilityTest {
     }
 
     @Test
-    void shouldReturnTheAndOfTwoProbability() throws InvalidProbabilityException {
+    void shouldReturnUnionOfTwoProbabilities() throws ProbabilityOutOfBoundException {
         Probability probability1 = new Probability(0.3D);
         Probability probability2 = new Probability(0.7D);
         Probability actual = probability1.and(probability2);
@@ -39,7 +39,7 @@ class ProbabilityTest {
     }
 
     @Test
-    void shouldReturnTheOrOfTwoProbability() throws InvalidProbabilityException {
+    void shouldReturnIntersectionOfTwoProbabilities() throws ProbabilityOutOfBoundException {
         Probability probability1 = new Probability(0.5D);
         Probability probability2 = new Probability(0.5D);
         Probability actual = probability1.or(probability2);
