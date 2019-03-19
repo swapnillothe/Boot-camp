@@ -23,8 +23,17 @@ class ProbabilityTest {
     @Test
     void shouldCalculateTheChanceOfEventNotHappening() throws InvalidProbabilityException {
         Probability probability = new Probability(0.7);
-        Probability actual = probability.calculateChanceOfNotOccurring();
+        Probability actual = probability.not();
         Probability expected = new Probability(0.3);
         assertEquals(expected, actual);
     }
+
+    @Test
+    void shouldReturnTheCompoundProbabilityOfTwoEvents() throws InvalidProbabilityException {
+        Probability probability = new Probability(0.3);
+        Probability actual = probability.and(new Probability(0.2));
+        Probability expected = new Probability(0.06);
+        assertEquals(expected, actual);
+    }
+
 }

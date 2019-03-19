@@ -4,6 +4,7 @@ import java.util.Objects;
 
 class Probability {
     private final double probability;
+    private final int UPPER_BOUND=1;
 
     Probability(double probability) throws InvalidProbabilityException {
         if (probability < 0 || probability > 1) throw new InvalidProbabilityException();
@@ -11,9 +12,16 @@ class Probability {
     }
 
 
-    Probability calculateChanceOfNotOccurring() throws InvalidProbabilityException {
-        return new Probability(1 - this.probability) ;
+    Probability not() throws InvalidProbabilityException {
+        return new Probability(UPPER_BOUND - this.probability) ;
     }
+
+    Probability and(Probability probability1) throws InvalidProbabilityException {
+
+
+        return new Probability(this.probability * probability1.probability);
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -23,5 +31,8 @@ class Probability {
         return Double.compare(that.probability, probability) == 0;
     }
 
-    
+    @Override
+    public int hashCode() {
+        return Objects.hash(probability);
+    }
 }
