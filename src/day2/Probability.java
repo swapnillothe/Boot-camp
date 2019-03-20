@@ -3,13 +3,13 @@ package day2;
 import java.math.BigDecimal;
 
 class Probability {
-    private final BigDecimal chance;
+    private final BigDecimal probability;
     private final int UPPER_BOUND = 1;
     private final int LOWER_BOUND = 0;
 
     Probability(double value) throws ProbabilityOutOfBoundException {
         if (isOutsideBound(value)) throw new ProbabilityOutOfBoundException();
-        this.chance = BigDecimal.valueOf(value);
+        this.probability = BigDecimal.valueOf(value);
     }
 
     private boolean isOutsideBound(double value){
@@ -18,12 +18,12 @@ class Probability {
 
     Probability not() throws ProbabilityOutOfBoundException {
         BigDecimal upperBound = BigDecimal.valueOf(UPPER_BOUND);
-        BigDecimal improbability = upperBound.subtract(this.chance);
+        BigDecimal improbability = upperBound.subtract(this.probability);
         return new Probability(improbability.doubleValue());
     }
 
     Probability and(Probability probability) throws ProbabilityOutOfBoundException {
-        BigDecimal and = this.chance.multiply(probability.chance);
+        BigDecimal and = this.probability.multiply(probability.probability);
         return new Probability(and.doubleValue());
     }
 
@@ -39,7 +39,7 @@ class Probability {
         if (this == obj) return true;
         if (!(obj instanceof Probability)) return false;
         Probability that = (Probability) obj;
-        int comparedResult = that.chance.compareTo(this.chance);
+        int comparedResult = that.probability.compareTo(this.probability);
         return comparedResult == 0;
     }
 }
