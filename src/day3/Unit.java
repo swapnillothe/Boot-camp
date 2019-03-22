@@ -2,7 +2,7 @@ package day3;
 
 import java.math.BigDecimal;
 
-public class Unit {
+class Unit {
   private final BigDecimal ratio;
   private final Type type;
 

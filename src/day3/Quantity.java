@@ -24,8 +24,6 @@ class Quantity {
   }
 
   Quantity add(Quantity anotherQuantity, Unit unit) {
-    BigDecimal valueOfMainQuantity = this.unit.convertToBaseUnit(this.value);
-    BigDecimal valueOfGivenQuantity = anotherQuantity.unit.convertToBaseUnit(anotherQuantity.value);
     BigDecimal totalValue = this.value.add(anotherQuantity.value);
     return new Quantity(totalValue.doubleValue(), unit);
   }

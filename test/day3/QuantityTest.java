@@ -56,6 +56,5 @@ class QuantityTest {
     Quantity expected = new Quantity(3, Unit.INCH);
     Quantity actual = inch1.add(inch2, Unit.INCH);
     assertEquals(expected, actual);
-
   }
 }
