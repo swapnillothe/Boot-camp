@@ -13,8 +13,8 @@ class Unit {
   static final Unit FEET = new Unit(300, Type.LENGTH);
   static final Unit CM = new Unit(10, Type.LENGTH);
 
-  static final Unit LITER = new Unit(1/1000000,Type.VOLUME);
-  static final Unit GALLON = new Unit(1/3780000,Type.VOLUME);
+  static final Unit LITER = new Unit(1, Type.VOLUME);
+  static final Unit GALLON = new Unit(3.78, Type.VOLUME);
 
   private Unit(double ratio, Type type) {
     this.ratio = BigDecimal.valueOf(ratio);
@@ -25,16 +25,11 @@ class Unit {
     return value.multiply(this.ratio);
   }
 
-  BigDecimal convertTo(BigDecimal value,Unit unit) {
-    return value.divide(unit.ratio);
+  BigDecimal convertTo(BigDecimal valueInBaseUnit, Unit unit) {
+    return valueInBaseUnit.divide(unit.ratio);
   }
 
-  boolean ofSameType(Unit anotherUnit){
+  boolean ofSameType(Unit anotherUnit) {
     return this.type.equals(anotherUnit.type);
   }
-//
-//  BigDecimal convertUnitTo(BigDecimal value) {
-//    return value.divide(this.ratio);
-//  }
-
 }

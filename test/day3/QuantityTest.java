@@ -37,8 +37,8 @@ class QuantityTest {
 
   @Test
   void ShouldReturnTrueIfGivenLiterAndGivenGalllonValueAreEqual() {
-    Quantity liter = new Quantity(1.0, Unit.LITER);
-    Quantity gallon = new Quantity(3.78, Unit.GALLON);
+    Quantity liter = new Quantity(3.78, Unit.LITER);
+    Quantity gallon = new Quantity(1, Unit.GALLON);
     assertEquals(liter, gallon);
   }
 
@@ -55,6 +55,24 @@ class QuantityTest {
     Quantity inch2 = new Quantity(2, Unit.INCH);
     Quantity expected = new Quantity(3, Unit.INCH);
     Quantity actual = inch1.add(inch2, Unit.INCH);
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  void ShouldAddDifferentQuantityOfTypeLength() {
+    Quantity inch = new Quantity(2, Unit.INCH);
+    Quantity cm = new Quantity(2.5, Unit.CM);
+    Quantity expected = new Quantity(3, Unit.INCH);
+    Quantity actual = inch.add(cm, Unit.INCH);
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  void ShouldAddDifferentQuantityOfTypeVolume() {
+    Quantity gallon = new Quantity(1, Unit.GALLON);
+    Quantity liter = new Quantity(1, Unit.LITER);
+    Quantity expected = new Quantity(4.78, Unit.LITER);
+    Quantity actual = gallon.add(liter, Unit.LITER);
     assertEquals(expected, actual);
   }
 }

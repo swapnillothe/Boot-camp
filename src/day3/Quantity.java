@@ -24,7 +24,13 @@ class Quantity {
   }
 
   Quantity add(Quantity anotherQuantity, Unit unit) {
-    BigDecimal totalValue = this.value.add(anotherQuantity.value);
-    return new Quantity(totalValue.doubleValue(), unit);
+    if (!this.unit.ofSameType(anotherQuantity.unit)) return null;
+
+    BigDecimal valueOfMainQuantity = this.unit.convertToBaseUnit(this.value);
+    BigDecimal valueOfGivenQuantity = anotherQuantity.unit.convertToBaseUnit(anotherQuantity.value);
+    BigDecimal totalValue = (valueOfGivenQuantity.add(valueOfMainQuantity));
+    BigDecimal valueInRequiredUnit = unit.convertTo(totalValue,unit);
+    return new Quantity(valueInRequiredUnit.doubleValue(), unit);
   }
+
 }

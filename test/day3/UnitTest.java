@@ -24,5 +24,4 @@ class UnitTest {
     assertTrue(expected.compareTo(actual) == 0);
   }
 
-
 }
