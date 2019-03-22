@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 class Ratio extends Unit {
+  private Type type;
+
+  public enum Type {LENGTH, VOLUME};
 
   private final BigDecimal ratio;
   private static Map<Type, Unit> standards = new HashMap<>();
@@ -18,7 +21,7 @@ class Ratio extends Unit {
   static final Unit GALLON = new Ratio(3.78, Type.VOLUME);
 
   private Ratio(double ratio, Type type) {
-    super(type);
+    this.type = type;
     this.ratio = BigDecimal.valueOf(ratio);
 
   }
@@ -38,7 +41,12 @@ class Ratio extends Unit {
   }
 
   Unit getStandardUnit() {
-    return Ratio.standards.get(super.type);
+    return Ratio.standards.get(this.type);
+  }
+
+  boolean ofDifferentType(Unit anotherUnit) {
+    Ratio anotherRatio = (Ratio) anotherUnit;
+    return !this.type.equals(anotherRatio.type);
   }
 
 }

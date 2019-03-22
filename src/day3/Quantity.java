@@ -34,7 +34,7 @@ class Quantity {
   }
 
   Quantity add(Quantity anotherQuantity){
-    Unit unit = (Unit) anotherQuantity.unit.getStandardUnit();
+    Unit unit = anotherQuantity.unit.getStandardUnit();
     return this.add(anotherQuantity, unit);
   }
 

@@ -5,22 +5,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 class RatioWithScale extends Unit {
+  private Type type;
+
+  public enum Type {TEMPERATURE}
+
   private final BigDecimal ratio;
   private final BigDecimal scale;
 
-  private static Map<Unit.Type, Unit> standards = new HashMap<>();
+  private static Map<Type, Unit> standards = new HashMap<>();
 
-  static final Unit FAHRENHEIT = new RatioWithScale(1, 0, Unit.Type.TEMPERATURE);
-  static final Unit CELSIUS = new RatioWithScale(1.8, 32, Unit.Type.TEMPERATURE);
+  static final Unit FAHRENHEIT = new RatioWithScale(1, 0, Type.TEMPERATURE);
+  static final Unit CELSIUS = new RatioWithScale(1.8, 32, Type.TEMPERATURE);
 
   private RatioWithScale(double ratio, double scale, Type type) {
-    super(type);
     this.ratio = BigDecimal.valueOf(ratio);
     this.scale = BigDecimal.valueOf(scale);
+    this.type = type;
   }
 
   static {
-    standards.put(Unit.Type.LENGTH, RatioWithScale.FAHRENHEIT);
+    standards.put(Type.TEMPERATURE, RatioWithScale.FAHRENHEIT);
   }
 
   BigDecimal convertToBaseUnit(BigDecimal value) {
@@ -33,7 +37,12 @@ class RatioWithScale extends Unit {
   }
 
   Unit getStandardUnit() {
-    return RatioWithScale.standards.get(super.type);
+    return RatioWithScale.standards.get(this.type);
+  }
+
+  boolean ofDifferentType(Unit anotherUnit) {
+    RatioWithScale anotherRatioWithSacle = (RatioWithScale) anotherUnit;
+    return !this.type.equals(anotherRatioWithSacle.type);
   }
 
 }
