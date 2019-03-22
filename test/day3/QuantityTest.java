@@ -75,4 +75,13 @@ class QuantityTest {
     Quantity actual = gallon.add(liter, Unit.LITER);
     assertEquals(expected, actual);
   }
+
+  @Test
+  void ShouldAddDifferentQuantityOfTypeVolumeInStandardUnit() {
+    Quantity gallon = new Quantity(1, Unit.GALLON);
+    Quantity liter = new Quantity(1, Unit.LITER);
+    Quantity expected = new Quantity(4.78, Unit.LITER);
+    Quantity actual = gallon.add(liter);
+    assertEquals(expected, actual);
+  }
 }
